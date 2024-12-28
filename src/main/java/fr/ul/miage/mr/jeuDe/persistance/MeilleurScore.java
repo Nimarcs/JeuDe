@@ -1,12 +1,10 @@
 package fr.ul.miage.mr.jeuDe.persistance;
 
-import fr.ul.miage.mr.jeuDe.Entree;
-import fr.ul.miage.mr.jeuDe.JoueurDe;
-import lombok.Builder;
+import fr.ul.miage.mr.jeuDe.modele.Entree;
+import fr.ul.miage.mr.jeuDe.modele.JoueurDe;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serial;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

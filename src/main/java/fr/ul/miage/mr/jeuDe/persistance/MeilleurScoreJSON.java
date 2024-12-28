@@ -1,9 +1,7 @@
 package fr.ul.miage.mr.jeuDe.persistance;
 
-import fr.ul.miage.mr.jeuDe.Entree;
-import fr.ul.miage.mr.jeuDe.JoueurDe;
-import fr.ul.miage.mr.jeuDe.modele.MeilleurScoreOld;
-import lombok.Builder;
+import fr.ul.miage.mr.jeuDe.modele.Entree;
+import fr.ul.miage.mr.jeuDe.modele.JoueurDe;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,9 +9,7 @@ import org.json.JSONObject;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;

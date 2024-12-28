@@ -7,7 +7,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.ReplaceOptions;
 import com.mongodb.client.result.UpdateResult;
-import fr.ul.miage.mr.jeuDe.Entree;
+import fr.ul.miage.mr.jeuDe.modele.Entree;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.json.JSONArray;
