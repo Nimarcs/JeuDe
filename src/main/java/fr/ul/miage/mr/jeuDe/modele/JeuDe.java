@@ -28,6 +28,7 @@ public class JeuDe extends Observable {
 
     public void finDePartie() {
         meilleurScore.ajouter(joueurDe);
+        meilleurScore.sauvegarder();
     }
 
     public void setJeuDeState(JeuDeState jeuDeState) {

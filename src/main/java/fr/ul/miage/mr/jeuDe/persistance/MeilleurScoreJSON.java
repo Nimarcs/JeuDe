@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -44,10 +45,10 @@ public class MeilleurScoreJSON extends MeilleurScore implements java.io.Serializ
         JSONObject jsonObject = new JSONObject(this);
         String jsonString = jsonObject.toString();
 
-        try (FileWriter fileWriter = new FileWriter(String.valueOf(Objects.requireNonNull(MeilleurScoreJSON.class.getClassLoader().getResource(FILEURI)).getPath()));
+        try (FileWriter fileWriter = new FileWriter(new File(Objects.requireNonNull(MeilleurScoreJSON.class.getClassLoader().getResource(FILEURI)).toURI()));
              BufferedWriter writer = new BufferedWriter(fileWriter);) {
             writer.write(jsonString);
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
     }

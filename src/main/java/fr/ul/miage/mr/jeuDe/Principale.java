@@ -42,7 +42,6 @@ public class Principale {
         jeuDeFacade.changerJoueur("Michel");
         jeuDeFacade.jouer();
         jeuDeFacade.jouer();
-
-
+        System.out.println(meilleurScore);
     }
 }

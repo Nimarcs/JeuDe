@@ -16,7 +16,7 @@ public abstract class MeilleurScore {
 
     private List<Entree> entreeList;
 
-    protected MeilleurScore(){
+    protected MeilleurScore() {
         this.entreeList = new ArrayList<>();
     }
 
@@ -27,6 +27,7 @@ public abstract class MeilleurScore {
 
     /**
      * Charge le meilleur score sauvegarder de la même manière avant
+     *
      * @return MeilleurScore
      */
     public abstract MeilleurScore charger();
@@ -43,7 +44,7 @@ public abstract class MeilleurScore {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (Entree entree : entreeList.stream().sorted(Comparator.comparingInt(Entree::getScore).reversed()).toList()) {
+        for (Entree entree : entreeList.stream().sorted(Comparator.comparingInt(Entree::getScore).reversed()).limit(5).toList()) {
             stringBuilder.append(entree.toString()).append('\n');
         }
         return stringBuilder.toString();
