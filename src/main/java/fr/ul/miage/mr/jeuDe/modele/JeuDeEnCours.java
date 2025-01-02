@@ -2,14 +2,14 @@ package fr.ul.miage.mr.jeuDe.modele;
 
 public class JeuDeEnCours implements JeuDeState {
 
+    private final static int NB_MANCHE = 10;
     private De de1;
     private De de2;
     private int nbDeMancheJoue;
-    private final static int NB_MANCHE = 10;
 
-    public JeuDeEnCours(){
-        de1 = new De();
-        de2 = new De();
+    public JeuDeEnCours(De de1, De de2) {
+        this.de1 = de1;
+        this.de2 = de2;
         nbDeMancheJoue = 0;
     }
 
@@ -27,8 +27,19 @@ public class JeuDeEnCours implements JeuDeState {
         } else {
             //On finit le jeu
             jeuDe.finDePartie();
-            jeuDe.setJeuDeState(new JeuDePasCommence());
+            jeuDe.setJeuDeState(new JeuDePasCommence(de1, de2));
             return 0;
         }
     }
+
+    @Override
+    public void updateJoueur(JeuDe jeuDe, String nomJoueur) {
+        throw new IllegalStateException("On ne definit pas le joueur en cours de partie");
+    }
+
+    @Override
+    public EtatJeuDe getEtat() {
+        return EtatJeuDe.EN_COURS;
+    }
+
 }

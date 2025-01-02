@@ -1,6 +1,8 @@
 package fr.ul.miage.mr.jeuDe.modele;
 
-public class JoueurDe {
+import java.util.Observable;
+
+public class JoueurDe extends Observable {
 
     private JeuDeEnCours jeuDe;
 
@@ -12,15 +14,37 @@ public class JoueurDe {
         this.score = score;
     }
 
-    public void play(){
-
+    public void setNom(String nom) {
+        this.nom = nom;
+        setChanged();
+        notifyObservers();
     }
 
-    public String getNom() {
-        return nom;
+    public void setScore(int score) {
+        if (score < 0) throw new IllegalArgumentException("Le score doit être positif");
+        this.score = score;
+        setChanged();
+        notifyObservers();
+    }
+
+    public void addToScore(int score){
+        if (score < 0) throw new IllegalArgumentException("Le score doit être positif");
+        this.score += score;
+        setChanged();
+        notifyObservers();
+    }
+
+    public void resetScore() {
+        score = 0;
+        setChanged();
+        notifyObservers();
     }
 
     public int getScore() {
         return score;
+    }
+
+    public String getNom() {
+        return nom;
     }
 }

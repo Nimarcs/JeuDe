@@ -22,6 +22,20 @@ public class MeilleurScoreJSON extends MeilleurScore implements java.io.Serializ
 
     private static final String FILEURI = "fr/ul/miage/mr/jeuDe/save.json";
 
+    public static void main(String[] args) {
+        AbstractMeilleurScoreFactory meilleurScoreFactory = new MeilleurScoreMongoFactory();
+        JoueurDe joueurDe = new JoueurDe("Bilbo", 7);
+        JoueurDe joueurDe2 = new JoueurDe("Frodo", 6);
+        MeilleurScore meilleurScore1 = meilleurScoreFactory.construire();
+        meilleurScore1.ajouter(joueurDe2);
+        meilleurScore1.ajouter(joueurDe);
+        System.out.println(meilleurScore1);
+        meilleurScore1.sauvegarder();
+        MeilleurScore meilleurScore2 = meilleurScoreFactory.construire();
+        meilleurScore2.charger();
+        System.out.println("chargée : \n" + meilleurScore2);
+    }
+
     /**
      * Sauvegarde le meilleur score courant
      */
@@ -48,7 +62,12 @@ public class MeilleurScoreJSON extends MeilleurScore implements java.io.Serializ
         String jsonText;
         try {
             Path path = Paths.get(Objects.requireNonNull(Objects.requireNonNull(MeilleurScoreJSON.class.getClassLoader().getResource(FILEURI)).toURI()));
-            jsonText = Files.readAllLines(path).get(0);
+            List<String> lines = Files.readAllLines(path);
+            if (lines.isEmpty()) {
+                this.setEntreeList(new ArrayList<>());
+                return this;
+            }
+            jsonText = lines.get(0);
 
             JSONObject jsonMeilleurScore = new JSONObject(jsonText);
             JSONArray entreesJSONarray = (JSONArray) jsonMeilleurScore.get("entreeList");
@@ -60,24 +79,10 @@ public class MeilleurScoreJSON extends MeilleurScore implements java.io.Serializ
 
             return this;
 
-        } catch (IOException | JSONException e){
+        } catch (IOException | JSONException e) {
             return new MeilleurScoreJSON();
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public static void main(String[] args) {
-        AbstractMeilleurScoreFactory meilleurScoreFactory = new MeilleurScoreMongoFactory();
-        JoueurDe joueurDe = new JoueurDe("Bilbo", 7);
-        JoueurDe joueurDe2 = new JoueurDe("Frodo", 6);
-        MeilleurScore meilleurScore1 = meilleurScoreFactory.construire();
-        meilleurScore1.ajouter(joueurDe2);
-        meilleurScore1.ajouter(joueurDe);
-        System.out.println(meilleurScore1);
-        meilleurScore1.sauvegarder();
-        MeilleurScore meilleurScore2 = meilleurScoreFactory.construire();
-        meilleurScore2.charger();
-        System.out.println("chargée : \n" + meilleurScore2);
     }
 }

@@ -1,11 +1,10 @@
 package fr.ul.miage.mr.jeuDe.modele;
 
 import fr.ul.miage.mr.jeuDe.persistance.MeilleurScore;
-import fr.ul.miage.mr.jeuDe.persistance.MeilleurScoreJSON;
-import fr.ul.miage.mr.jeuDe.persistance.MeilleurScoreJSONFactory;
-import fr.ul.miage.mr.jeuDe.persistance.MeilleurScoreMongoFactory;
 
-public class JeuDe {
+import java.util.Observable;
+
+public class JeuDe extends Observable {
 
     private MeilleurScore meilleurScore;
 
@@ -13,25 +12,43 @@ public class JeuDe {
 
     private JeuDeState jeuDeState;
 
-    public JeuDe(){
-        this.jeuDeState = new JeuDePasCommence();
-        this.meilleurScore = new MeilleurScoreJSONFactory().construire();
+    protected JeuDe(De de1, De de2, JoueurDe joueurDe, MeilleurScore meilleurScore) {
+        this.jeuDeState = new JeuDePasCommence(de1, de2);
+        this.joueurDe = joueurDe;
+        this.meilleurScore = meilleurScore;
     }
 
-    public int jouer(JoueurDe joueurDe){
-        return jeuDeState.jouer(this);
+    public void jouer() {
+        joueurDe.addToScore(jeuDeState.jouer(this));
     }
 
-    public void finDePartie(){
-        jeuDeState = new JeuDePasCommence();
+    public void changerJoueur(String nomJoueur) {
+        jeuDeState.updateJoueur(this, nomJoueur);
+    }
+
+    public void finDePartie() {
         meilleurScore.ajouter(joueurDe);
     }
 
     public void setJeuDeState(JeuDeState jeuDeState) {
         this.jeuDeState = jeuDeState;
+        setChanged();
+        notifyObservers();
+    }
+
+    public JoueurDe getJoueurDe() {
+        return joueurDe;
     }
 
     public void setJoueurDe(JoueurDe joueurDe) {
         this.joueurDe = joueurDe;
+    }
+
+    public void resetScore() {
+        joueurDe.resetScore();
+    }
+
+    public EtatJeuDe getJeuDeEtat() {
+        return jeuDeState.getEtat();
     }
 }
