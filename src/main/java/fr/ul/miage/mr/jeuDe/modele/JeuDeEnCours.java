@@ -15,20 +15,18 @@ public class JeuDeEnCours implements JeuDeState {
 
     @Override
     public int jouer(JeuDe jeuDe) {
-        if (nbDeMancheJoue < NB_MANCHE) {
-            //On joue la manche
-            nbDeMancheJoue++;
-            de1.lancer();
-            de2.lancer();
-            if (de1.getValeur() + de2.getValeur() == 7) {
-                return 10;
-            } else {
-                return 0;
-            }
-        } else {
+        //On joue la manche
+        nbDeMancheJoue++;
+        de1.lancer();
+        de2.lancer();
+        if (nbDeMancheJoue == NB_MANCHE) {
             //On finit le jeu
             jeuDe.finDePartie();
-            jeuDe.setJeuDeState(new JeuDePasCommence(de1, de2));
+            jeuDe.setJeuDeState(new JeuTermine());
+        }
+        if (de1.getValeur() + de2.getValeur() == 7) {
+            return 10;
+        } else {
             return 0;
         }
     }
@@ -41,9 +39,5 @@ public class JeuDeEnCours implements JeuDeState {
     @Override
     public EtatJeuDe getEtat() {
         return EtatJeuDe.EN_COURS;
-    }
-
-    public int getNbDeMancheJoue() {
-        return nbDeMancheJoue;
     }
 }

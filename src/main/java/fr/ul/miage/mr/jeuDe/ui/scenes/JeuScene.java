@@ -1,6 +1,7 @@
 package fr.ul.miage.mr.jeuDe.ui.scenes;
 
 import fr.ul.miage.mr.jeuDe.modele.De;
+import fr.ul.miage.mr.jeuDe.modele.EtatJeuDe;
 import fr.ul.miage.mr.jeuDe.modele.JeuDeFacade;
 import fr.ul.miage.mr.jeuDe.modele.JoueurDe;
 import fr.ul.miage.mr.jeuDe.persistance.MeilleurScore;
@@ -44,7 +45,14 @@ public class JeuScene {
         // Bouton LANCER
         Button lancerButton = new Button("LANCER");
         jeuDeFacade.jouer();
-        lancerButton.setOnAction(e -> jeuDeFacade.jouer());
+        lancerButton.setOnAction(
+                e -> {
+                    jeuDeFacade.jouer();
+                    if (jeuDeFacade.getEtat() == EtatJeuDe.TERMINE) {
+                        app.showFinJeuScene(joueurDe);
+                    }
+                }
+        );
 
         // Construire une VBox pour LANCER et JoueurDeView et JeuDeView
         HBox joueurDeBox = new HBox();
