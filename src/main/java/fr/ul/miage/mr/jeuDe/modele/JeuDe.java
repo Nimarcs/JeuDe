@@ -27,6 +27,8 @@ public class JeuDe extends Observable {
     }
 
     public void finDePartie() {
+        System.out.println("Fin de la partie");
+        System.out.println("Score de " + joueurDe.getNom() + " : " + joueurDe.getScore());
         meilleurScore.ajouter(joueurDe);
         meilleurScore.sauvegarder();
     }

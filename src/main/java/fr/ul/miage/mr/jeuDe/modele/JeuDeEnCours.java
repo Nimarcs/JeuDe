@@ -20,10 +20,7 @@ public class JeuDeEnCours implements JeuDeState {
             nbDeMancheJoue++;
             de1.lancer();
             de2.lancer();
-            if (de1.getValeur() + de2.getValeur() >= 7)
-                return 10;
-            else
-                return 0;
+            return de1.getValeur() + de2.getValeur();
         } else {
             //On finit le jeu
             jeuDe.finDePartie();
@@ -42,4 +39,7 @@ public class JeuDeEnCours implements JeuDeState {
         return EtatJeuDe.EN_COURS;
     }
 
+    public int getNbDeMancheJoue() {
+        return nbDeMancheJoue;
+    }
 }
