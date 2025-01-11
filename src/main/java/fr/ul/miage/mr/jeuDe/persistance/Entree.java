@@ -1,4 +1,4 @@
-package fr.ul.miage.mr.jeuDe.modele;
+package fr.ul.miage.mr.jeuDe.persistance;
 
 
 public class Entree {
@@ -6,7 +6,7 @@ public class Entree {
     private String nom;
     private int score;
 
-    public Entree(String nom, int score){
+    public Entree(String nom, int score) {
         this.nom = nom;
         this.score = score;
     }
@@ -21,7 +21,7 @@ public class Entree {
 
     @Override
     public String toString() {
-        return  " - " + nom + " : " + score;
+        return " - " + nom + " : " + score;
     }
 
 

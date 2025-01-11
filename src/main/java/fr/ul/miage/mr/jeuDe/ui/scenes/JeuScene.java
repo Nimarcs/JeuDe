@@ -5,7 +5,6 @@ import fr.ul.miage.mr.jeuDe.modele.EtatJeuDe;
 import fr.ul.miage.mr.jeuDe.modele.JeuDeFacade;
 import fr.ul.miage.mr.jeuDe.modele.JoueurDe;
 import fr.ul.miage.mr.jeuDe.persistance.MeilleurScore;
-import fr.ul.miage.mr.jeuDe.persistance.MeilleurScoreJSONFactory;
 import fr.ul.miage.mr.jeuDe.ui.MainApp;
 import fr.ul.miage.mr.jeuDe.ui.views.DeView;
 import fr.ul.miage.mr.jeuDe.ui.views.JeuDeView;
@@ -19,11 +18,11 @@ public class JeuScene {
     private JeuDeView jeuDeView;
     private JeuDeFacade jeuDeFacade;
 
-    public JeuScene(MainApp app, String nomJoueur) {
+    public JeuScene(MainApp app, String nomJoueur, MeilleurScore meilleurScore) {
         this.root = new BorderPane();
 
         this.jeuDeView = new JeuDeView();
-        MeilleurScore meilleurScore = new MeilleurScoreJSONFactory().construire();
+        meilleurScore.charger();
         JoueurDe joueurDe = new JoueurDe(nomJoueur, 0);
         JoueurDeView joueurDeView = new JoueurDeView(joueurDe);
         joueurDe.addObserver(joueurDeView);

@@ -1,6 +1,5 @@
 package fr.ul.miage.mr.jeuDe.persistance;
 
-import fr.ul.miage.mr.jeuDe.modele.Entree;
 import fr.ul.miage.mr.jeuDe.modele.JoueurDe;
 import org.json.JSONArray;
 import org.json.JSONException;

@@ -7,7 +7,6 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.ReplaceOptions;
 import com.mongodb.client.result.UpdateResult;
-import fr.ul.miage.mr.jeuDe.modele.Entree;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.json.JSONArray;
@@ -19,7 +18,7 @@ import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
 
-public class MeilleurScoreMongo extends MeilleurScore{
+public class MeilleurScoreMongo extends MeilleurScore {
 
     public static final String MONGODB_URI = "mongodb://localhost:27017/";
 
@@ -44,11 +43,11 @@ public class MeilleurScoreMongo extends MeilleurScore{
 
             // Replaces the first document that matches the filter with a new document
             UpdateResult result = collection.replaceOne(query, replaceDocument, opts);
-            if (!result.wasAcknowledged()){
+            if (!result.wasAcknowledged()) {
                 System.out.println("La sauvegarde n'a pas eu de réponse de la part de la base de données");
             }
 
-        } catch (MongoException e){
+        } catch (MongoException e) {
             System.out.println("Sauvegarde échoué");
             e.printStackTrace();
         }

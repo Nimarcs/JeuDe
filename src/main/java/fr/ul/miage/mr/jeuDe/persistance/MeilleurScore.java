@@ -1,6 +1,5 @@
 package fr.ul.miage.mr.jeuDe.persistance;
 
-import fr.ul.miage.mr.jeuDe.modele.Entree;
 import fr.ul.miage.mr.jeuDe.modele.JoueurDe;
 import lombok.Getter;
 import lombok.Setter;
@@ -44,7 +43,7 @@ public abstract class MeilleurScore {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        for (Entree entree : entreeList.stream().sorted(Comparator.comparingInt(Entree::getScore).reversed()).limit(5).toList()) {
+        for (Entree entree : entreeList.stream().sorted(Comparator.comparingInt(Entree::getScore).reversed()).limit(20).toList()) {
             stringBuilder.append(entree.toString()).append('\n');
         }
         return stringBuilder.toString();

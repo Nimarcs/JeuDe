@@ -1,5 +1,7 @@
 package fr.ul.miage.mr.jeuDe.ui.scenes;
 
+import fr.ul.miage.mr.jeuDe.persistance.Entree;
+import fr.ul.miage.mr.jeuDe.persistance.MeilleurScore;
 import fr.ul.miage.mr.jeuDe.ui.MainApp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,10 +11,13 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.util.Comparator;
+import java.util.List;
+
 public class AccueilScene {
     private final BorderPane root;
 
-    public AccueilScene(MainApp app) {
+    public AccueilScene(MainApp app, MeilleurScore meilleurScore) {
         root = new BorderPane();
         // Champ de texte pour entrer le nom du joueur
         TextField nomJoueurField = new TextField();
@@ -38,7 +43,7 @@ public class AccueilScene {
         quitterButton.setOnAction(e -> System.exit(0));
 
         // Tableau des meilleurs scores
-        VBox scoreTable = createScoreBoard();
+        VBox scoreTable = createScoreBoard(meilleurScore);
 
         // Disposition des éléments
         VBox centerBox = new VBox(10, jouerButton, nomJoueurBox);
@@ -56,13 +61,13 @@ public class AccueilScene {
     // CHATGPT
     ///////////////////////////////////////////////////////////////////////////
 
-    private VBox createScoreBoard() {
+    private VBox createScoreBoard(MeilleurScore meilleurScore) {
         // Label pour le tableau des scores
         Label titleLabel = new Label("MEILLEURS SCORES");
         titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center;");
 
         // Création du tableau des scores
-        TableView<ScoreEntry> scoreTable = createScoreTable();
+        TableView<ScoreEntry> scoreTable = createScoreTable(meilleurScore);
 
         // Conteneur vertical pour le label et le tableau
         VBox scoreBoard = new VBox(10, titleLabel, scoreTable);
@@ -74,7 +79,7 @@ public class AccueilScene {
     /**
      * Création du tableau des meilleurs scores.
      */
-    private TableView<ScoreEntry> createScoreTable() {
+    private TableView<ScoreEntry> createScoreTable(MeilleurScore meilleurScore) {
         TableView<ScoreEntry> scoreTable = new TableView<>();
 
         // Colonne Nom
@@ -92,14 +97,17 @@ public class AccueilScene {
         // Désactiver la colonne vide par défaut
         scoreTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        // Ajouter des données fictives
-        ObservableList<ScoreEntry> scores = FXCollections.observableArrayList(
-                new ScoreEntry("Alice", 120),
-                new ScoreEntry("Bob", 95),
-                new ScoreEntry("Charlie", 80),
-                new ScoreEntry("Diana", 150),
-                new ScoreEntry("Eve", 110)
-        );
+        //Charger les données dans une liste
+        meilleurScore.charger();
+        List<ScoreEntry> scoreEntryList = meilleurScore.getEntreeList().stream()
+                .sorted(new Comparator<Entree>() {
+                    public int compare(Entree s1, Entree s2) {
+                        return -s1.getScore().compareTo(s2.getScore());
+                    }
+                }).map(entree -> new ScoreEntry(entree.getNom(), entree.getScore())).toList();
+
+        // Ajouter la liste
+        ObservableList<ScoreEntry> scores = FXCollections.observableArrayList(scoreEntryList);
         scoreTable.setItems(scores);
 
         return scoreTable;
