@@ -44,11 +44,11 @@ public class MeilleurScoreMongo extends MeilleurScore {
             // Replaces the first document that matches the filter with a new document
             UpdateResult result = collection.replaceOne(query, replaceDocument, opts);
             if (!result.wasAcknowledged()) {
-                System.out.println("La sauvegarde n'a pas eu de réponse de la part de la base de données");
+                System.err.println("La sauvegarde n'a pas eu de réponse de la part de la base de données");
             }
 
         } catch (MongoException e) {
-            System.out.println("Sauvegarde échoué");
+            System.err.println("Sauvegarde échoué");
             e.printStackTrace();
         }
     }
@@ -83,7 +83,7 @@ public class MeilleurScoreMongo extends MeilleurScore {
             }
 
         } catch (MongoException e) {
-            System.out.println("Chargement échoué");
+            System.err.println("Chargement échoué");
             e.printStackTrace();
             return null;
         }

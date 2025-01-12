@@ -7,7 +7,6 @@ import fr.ul.miage.mr.jeuDe.modele.JoueurDe;
 import fr.ul.miage.mr.jeuDe.persistance.MeilleurScore;
 import fr.ul.miage.mr.jeuDe.ui.MainApp;
 import fr.ul.miage.mr.jeuDe.ui.views.DeView;
-import fr.ul.miage.mr.jeuDe.ui.views.JeuDeView;
 import fr.ul.miage.mr.jeuDe.ui.views.JoueurDeView;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
@@ -15,20 +14,18 @@ import javafx.scene.layout.HBox;
 
 public class JeuScene {
     private final BorderPane root;
-    private JeuDeView jeuDeView;
     private JeuDeFacade jeuDeFacade;
 
     public JeuScene(MainApp app, String nomJoueur, MeilleurScore meilleurScore) {
         this.root = new BorderPane();
 
-        this.jeuDeView = new JeuDeView();
         meilleurScore.charger();
         JoueurDe joueurDe = new JoueurDe(nomJoueur, 0);
         JoueurDeView joueurDeView = new JoueurDeView(joueurDe);
         joueurDe.addObserver(joueurDeView);
         De de1 = new De();
         De de2 = new De();
-        this.jeuDeFacade = new JeuDeFacade(de1, de2, joueurDe, meilleurScore, jeuDeView);
+        this.jeuDeFacade = new JeuDeFacade(de1, de2, joueurDe, meilleurScore);
 
         DeView deView1 = new DeView();
         de1.addObserver(deView1);

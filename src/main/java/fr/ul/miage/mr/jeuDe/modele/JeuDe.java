@@ -2,9 +2,7 @@ package fr.ul.miage.mr.jeuDe.modele;
 
 import fr.ul.miage.mr.jeuDe.persistance.MeilleurScore;
 
-import java.util.Observable;
-
-public class JeuDe extends Observable {
+public class JeuDe {
 
     private MeilleurScore meilleurScore;
 
@@ -27,16 +25,12 @@ public class JeuDe extends Observable {
     }
 
     public void finDePartie() {
-        System.out.println("Fin de la partie");
-        System.out.println("Score de " + joueurDe.getNom() + " : " + joueurDe.getScore());
         meilleurScore.ajouter(joueurDe);
         meilleurScore.sauvegarder();
     }
 
     public void setJeuDeState(JeuDeState jeuDeState) {
         this.jeuDeState = jeuDeState;
-        setChanged();
-        notifyObservers();
     }
 
     public JoueurDe getJoueurDe() {

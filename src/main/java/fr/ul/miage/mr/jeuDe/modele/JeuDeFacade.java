@@ -2,15 +2,12 @@ package fr.ul.miage.mr.jeuDe.modele;
 
 import fr.ul.miage.mr.jeuDe.persistance.MeilleurScore;
 
-import java.util.Observer;
-
 public class JeuDeFacade {
 
     private JeuDe jeuDe;
 
-    public JeuDeFacade(De de1, De de2, JoueurDe joueurDe, MeilleurScore meilleurScore, Observer jeuDeView) {
+    public JeuDeFacade(De de1, De de2, JoueurDe joueurDe, MeilleurScore meilleurScore) {
         jeuDe = new JeuDe(de1, de2, joueurDe, meilleurScore);
-        jeuDe.addObserver(jeuDeView);
     }
 
     public void jouer() {

@@ -29,11 +29,9 @@ public class MeilleurScoreJSON extends MeilleurScore implements java.io.Serializ
         MeilleurScore meilleurScore1 = meilleurScoreFactory.construire();
         meilleurScore1.ajouter(joueurDe2);
         meilleurScore1.ajouter(joueurDe);
-        System.out.println(meilleurScore1);
         meilleurScore1.sauvegarder();
         MeilleurScore meilleurScore2 = meilleurScoreFactory.construire();
         meilleurScore2.charger();
-        System.out.println("chargée : \n" + meilleurScore2);
     }
 
     /**
