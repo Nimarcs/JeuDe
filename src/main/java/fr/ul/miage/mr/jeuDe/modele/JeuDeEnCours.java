@@ -16,20 +16,24 @@ public class JeuDeEnCours implements JeuDeState {
     @Override
     public int jouer(JeuDe jeuDe) {
         //On joue la manche
-        nbDeMancheJoue++;
-        de1.lancer();
-        de2.lancer();
+
         if (nbDeMancheJoue == NB_MANCHE) {
             //On finit le jeu
             jeuDe.finDePartie();
             jeuDe.setJeuDeState(new JeuTermine());
             return 0;
         }
+
+        nbDeMancheJoue++;
+        de1.lancer();
+        de2.lancer();
+
         if (de1.getValeur() + de2.getValeur() == 7) {
             return 10;
         } else {
             return 0;
         }
+
     }
 
     @Override
