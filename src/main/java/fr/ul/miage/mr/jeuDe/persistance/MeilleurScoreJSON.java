@@ -1,6 +1,5 @@
 package fr.ul.miage.mr.jeuDe.persistance;
 
-import fr.ul.miage.mr.jeuDe.modele.JoueurDe;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,18 +21,6 @@ public class MeilleurScoreJSON extends MeilleurScore implements java.io.Serializ
 
     private static final String FILEURI = "fr/ul/miage/mr/jeuDe/save.json";
 
-    public static void main(String[] args) {
-        AbstractMeilleurScoreFactory meilleurScoreFactory = new MeilleurScoreMongoFactory();
-        JoueurDe joueurDe = new JoueurDe("Bilbo", 7);
-        JoueurDe joueurDe2 = new JoueurDe("Frodo", 6);
-        MeilleurScore meilleurScore1 = meilleurScoreFactory.construire();
-        meilleurScore1.ajouter(joueurDe2);
-        meilleurScore1.ajouter(joueurDe);
-        meilleurScore1.sauvegarder();
-        MeilleurScore meilleurScore2 = meilleurScoreFactory.construire();
-        meilleurScore2.charger();
-    }
-
     /**
      * Sauvegarde le meilleur score courant
      */
@@ -43,7 +30,7 @@ public class MeilleurScoreJSON extends MeilleurScore implements java.io.Serializ
         String jsonString = jsonObject.toString();
 
         try (FileWriter fileWriter = new FileWriter(new File(Objects.requireNonNull(MeilleurScoreJSON.class.getClassLoader().getResource(FILEURI)).toURI()));
-             BufferedWriter writer = new BufferedWriter(fileWriter);) {
+             BufferedWriter writer = new BufferedWriter(fileWriter)) {
             writer.write(jsonString);
         } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
