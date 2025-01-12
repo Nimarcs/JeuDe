@@ -23,6 +23,7 @@ public class JeuDeEnCours implements JeuDeState {
             //On finit le jeu
             jeuDe.finDePartie();
             jeuDe.setJeuDeState(new JeuTermine());
+            return 0;
         }
         if (de1.getValeur() + de2.getValeur() == 7) {
             return 10;
