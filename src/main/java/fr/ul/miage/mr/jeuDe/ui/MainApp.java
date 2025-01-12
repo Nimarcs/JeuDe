@@ -2,7 +2,6 @@ package fr.ul.miage.mr.jeuDe.ui;
 
 import fr.ul.miage.mr.jeuDe.modele.JoueurDe;
 import fr.ul.miage.mr.jeuDe.persistance.AbstractMeilleurScoreFactory;
-import fr.ul.miage.mr.jeuDe.persistance.MeilleurScore;
 import fr.ul.miage.mr.jeuDe.persistance.MeilleurScoreJSONFactory;
 import fr.ul.miage.mr.jeuDe.ui.scenes.AccueilScene;
 import fr.ul.miage.mr.jeuDe.ui.scenes.FinJeuScene;
@@ -19,7 +18,7 @@ import javafx.stage.Stage;
  */
 
 public class MainApp extends Application {
-    private MeilleurScore meilleurScore;
+    private AbstractMeilleurScoreFactory meilleurScoreFactory;
     private Stage primaryStage;
     private Scene accueilScene;
     private Scene jeuScene;
@@ -32,8 +31,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        AbstractMeilleurScoreFactory meilleurScoreFactory = new MeilleurScoreJSONFactory();
-        meilleurScore = meilleurScoreFactory.construire();
+        meilleurScoreFactory = new MeilleurScoreJSONFactory();
 
         // Afficher la scène d'accueil
         primaryStage.setTitle("Jeu de Dé");
@@ -42,13 +40,13 @@ public class MainApp extends Application {
     }
 
     public void showAccueilScene() {
-        AccueilScene accueilScene = new AccueilScene(this, meilleurScore);
+        AccueilScene accueilScene = new AccueilScene(this, meilleurScoreFactory.construire());
         this.accueilScene = new Scene(accueilScene.getView(), 800, 400);
         primaryStage.setScene(this.accueilScene);
     }
 
     public void showJeuScene(String nomJoueur) {
-        JeuScene jeuScene = new JeuScene(this, nomJoueur, meilleurScore);
+        JeuScene jeuScene = new JeuScene(this, nomJoueur, meilleurScoreFactory.construire());
         this.jeuScene = new Scene(jeuScene.getView(), 800, 400);
         primaryStage.setScene(this.jeuScene);
     }
@@ -57,5 +55,9 @@ public class MainApp extends Application {
         FinJeuScene finJeuScene = new FinJeuScene(this, joueurDe);
         this.finJeuScene = new Scene(finJeuScene.getView(), 800, 400);
         primaryStage.setScene(this.finJeuScene);
+    }
+
+    public void setMeilleurScoreFactory(AbstractMeilleurScoreFactory meilleurScoreFactory) {
+        this.meilleurScoreFactory = meilleurScoreFactory;
     }
 }

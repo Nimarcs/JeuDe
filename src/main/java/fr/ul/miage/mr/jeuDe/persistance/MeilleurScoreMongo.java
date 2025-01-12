@@ -88,4 +88,9 @@ public class MeilleurScoreMongo extends MeilleurScore {
             return null;
         }
     }
+
+    @Override
+    public String toString() {
+        return "MongoDB";
+    }
 }

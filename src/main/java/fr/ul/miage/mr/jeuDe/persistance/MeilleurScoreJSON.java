@@ -85,4 +85,9 @@ public class MeilleurScoreJSON extends MeilleurScore implements java.io.Serializ
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Fichier";
+    }
 }

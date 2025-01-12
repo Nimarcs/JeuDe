@@ -2,6 +2,8 @@ package fr.ul.miage.mr.jeuDe.ui.scenes;
 
 import fr.ul.miage.mr.jeuDe.persistance.Entree;
 import fr.ul.miage.mr.jeuDe.persistance.MeilleurScore;
+import fr.ul.miage.mr.jeuDe.persistance.MeilleurScoreJSONFactory;
+import fr.ul.miage.mr.jeuDe.persistance.MeilleurScoreMongoFactory;
 import fr.ul.miage.mr.jeuDe.ui.MainApp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -43,7 +45,7 @@ public class AccueilScene {
         quitterButton.setOnAction(e -> System.exit(0));
 
         // Tableau des meilleurs scores
-        VBox scoreTable = createScoreBoard(meilleurScore);
+        VBox scoreTable = createScoreBoard(app, meilleurScore);
 
         // Disposition des éléments
         VBox centerBox = new VBox(10, jouerButton, nomJoueurBox);
@@ -61,16 +63,44 @@ public class AccueilScene {
     // CHATGPT
     ///////////////////////////////////////////////////////////////////////////
 
-    private VBox createScoreBoard(MeilleurScore meilleurScore) {
+    private VBox createScoreBoard(MainApp app, MeilleurScore meilleurScore) {
         // Label pour le tableau des scores
         Label titleLabel = new Label("MEILLEURS SCORES");
         titleLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-alignment: center;");
 
+        Label scoresDropdownLabel = new Label("Type de stockage :");
+        scoresDropdownLabel.setStyle("-fx-font-size: 12px; -fx-alignment: left;  -fx-padding: 5 0 0 0");
+
+        // Dropdown type de persistance
+        ComboBox<String> scoreDropdown = new ComboBox<>(FXCollections.observableArrayList("Fichier", "MongoDB"));
+        scoreDropdown.setValue(meilleurScore.toString());
+
         // Création du tableau des scores
         TableView<ScoreEntry> scoreTable = createScoreTable(meilleurScore);
 
+        // Gestion du changement de sélection
+        scoreDropdown.setOnAction(event -> {
+            meilleurScore.sauvegarder();
+
+            String selection = scoreDropdown.getValue();
+            switch (selection) {
+                case "Fichier":
+                    app.setMeilleurScoreFactory(new MeilleurScoreJSONFactory());
+                    app.showAccueilScene();
+                    break;
+                case "MongoDB":
+                    app.setMeilleurScoreFactory(new MeilleurScoreMongoFactory());
+                    app.showAccueilScene();
+                    break;
+                default:
+                    throw new IllegalStateException("Type de stockage non pris en compte : " + selection);
+            }
+            scoreTable.refresh();
+        });
+
+
         // Conteneur vertical pour le label et le tableau
-        VBox scoreBoard = new VBox(10, titleLabel, scoreTable);
+        VBox scoreBoard = new VBox(10, titleLabel, new HBox(10, scoresDropdownLabel, scoreDropdown), scoreTable);
         scoreBoard.setStyle("-fx-padding: 10; -fx-alignment: center;");
 
         return scoreBoard;
