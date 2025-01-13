@@ -1,5 +1,6 @@
 package fr.ul.miage.mr.jeuDe.modele;
 
+import fr.ul.miage.mr.jeuDe.persistance.Entree;
 import fr.ul.miage.mr.jeuDe.persistance.MeilleurScore;
 
 public class JeuDe {
@@ -25,7 +26,7 @@ public class JeuDe {
     }
 
     public void finDePartie() {
-        meilleurScore.ajouter(joueurDe);
+        meilleurScore.ajouter(new Entree(joueurDe.getNom(), joueurDe.getScore()));
         meilleurScore.sauvegarder();
     }
 
