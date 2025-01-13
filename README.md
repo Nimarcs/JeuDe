@@ -41,5 +41,4 @@ Il intègre un système de fichier JSON, ou de MongoDB pour la persistance des d
 - org.json.json : 20240303
 - MongoDB Driver Sync : 5.2.0
 - Logback Classic : 1.4.12
-- Lombok : 1.18.36
 - JavaFX Controls et FXML : 23.0.1

@@ -1,16 +1,12 @@
 package fr.ul.miage.mr.jeuDe.persistance;
 
 import fr.ul.miage.mr.jeuDe.modele.JoueurDe;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-@Getter
-@Setter
 public abstract class MeilleurScore {
 
     private List<Entree> entreeList;
@@ -49,4 +45,7 @@ public abstract class MeilleurScore {
         return stringBuilder.toString();
     }
 
+    public void setEntreeList(List<Entree> entreeList) {
+        this.entreeList = entreeList;
+    }
 }

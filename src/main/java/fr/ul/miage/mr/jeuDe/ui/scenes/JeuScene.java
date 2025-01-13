@@ -14,18 +14,18 @@ import javafx.scene.layout.HBox;
 
 public class JeuScene {
     private final BorderPane root;
-    private JeuDeFacade jeuDeFacade;
 
     public JeuScene(MainApp app, String nomJoueur, MeilleurScore meilleurScore) {
         this.root = new BorderPane();
 
+        JeuDeFacade jeuDeFacade;
         meilleurScore.charger();
         JoueurDe joueurDe = new JoueurDe(nomJoueur, 0);
         JoueurDeView joueurDeView = new JoueurDeView(joueurDe);
         joueurDe.addObserver(joueurDeView);
         De de1 = new De();
         De de2 = new De();
-        this.jeuDeFacade = new JeuDeFacade(de1, de2, joueurDe, meilleurScore);
+        jeuDeFacade = new JeuDeFacade(de1, de2, joueurDe, meilleurScore);
 
         DeView deView1 = new DeView();
         de1.addObserver(deView1);
