@@ -27,9 +27,9 @@ public abstract class MeilleurScore {
      */
     public abstract MeilleurScore charger();
 
-    public void ajouter(JoueurDe joueur) {
-        if (joueur == null) return;
-        entreeList.add(new Entree(joueur.getNom(), joueur.getScore()));
+    public void ajouter(Entree entree) {
+        if (entree == null) return;
+        entreeList.add(new Entree(entree.getNom(), entree.getScore()));
     }
 
     public List<Entree> getEntreeList() {
