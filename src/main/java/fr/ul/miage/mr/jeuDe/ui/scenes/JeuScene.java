@@ -56,7 +56,7 @@ public class JeuScene {
         root.setCenter(joueurDeBox);
 
         // Bouton QUITTER
-        Button quitterButton = new Button("QUITTER");
+        Button quitterButton = new Button("ABANDONNER");
         quitterButton.setOnAction(e -> app.showAccueilScene());
         root.setBottom(quitterButton);
         BorderPane.setAlignment(quitterButton, javafx.geometry.Pos.CENTER);
